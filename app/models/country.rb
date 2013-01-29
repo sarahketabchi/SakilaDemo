@@ -5,13 +5,15 @@ class Country < ActiveRecord::Base
   has_many :cities
   has_many :addresses, :through => :cities
   has_many :stores, :through => :addresses
-  has_many :inventories, :through => :stores
 
 
   def self.most_popular_actor
     self
-      .joins(:inventories => :rentals)
-      .group()
+      .select("country.country, actor.actor_id AS actor_obj, COUNT(*) AS num_rentals")
+      .joins(:stores => {:rentals => :actors})
+      .group("actor.actor_id")
+      .order("COUNT(*) DESC")
+      .first
   end
 
 end

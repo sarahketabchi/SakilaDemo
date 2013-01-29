@@ -6,6 +6,7 @@ class Inventory < ActiveRecord::Base
   belongs_to :store
 
   has_many :rentals
+  has_one :address, :through => :store
 
 
 end

@@ -5,5 +5,8 @@ class Rental < ActiveRecord::Base
   belongs_to :inventory
   belongs_to :customer
 
+  has_one :film, :through => :inventory
+  has_many :actors, :through => :film
+
 
 end

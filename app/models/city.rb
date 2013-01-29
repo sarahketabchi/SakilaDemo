@@ -5,5 +5,14 @@ class City < ActiveRecord::Base
   belongs_to :country
   has_many :addresses
 
+  has_many :stores, :through => :addresses
+
+  def self.num_rentals_per_city
+    self
+      .select("city.city, COUNT(*) AS num_rentals")
+      .joins(:stores => :rentals)
+      .group("city.city_id")
+  end
+
 
 end

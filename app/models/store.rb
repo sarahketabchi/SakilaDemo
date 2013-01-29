@@ -4,10 +4,11 @@ class Store < ActiveRecord::Base
 
   has_many :inventories
   has_many :films, :through => :inventories
+  has_many :rentals, :through => :inventories
 
-  has_one :address
+
+  belongs_to :address
   has_one :country, :through => :address
-
 
 
 end
