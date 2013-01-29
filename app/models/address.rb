@@ -3,6 +3,7 @@ class Address < ActiveRecord::Base
   set_primary_key(:address_id)
 
   belongs_to :city
+  belongs_to :store
   has_one :country, :through => :city
 
 

@@ -5,7 +5,6 @@ class Customer < ActiveRecord::Base
   has_many :rentals
   has_many :inventories, :through => :rentals
   has_many :films, :through => :inventories
-  # has_many :categories, :through => :films
 
   def self.watched_most_films
     self
@@ -15,13 +14,13 @@ class Customer < ActiveRecord::Base
       .first
   end
 
-  # def self.num_of_films_per_category
-  #   categories
-  #   .select("category.*, COUNT(*) AS num_films")
-  #   .joins(:films)
-  #   .group("category_id")
+  def self.num_of_films_per_category
+    self
+    .select("customer.customer_id, film_category.category_id AS category, COUNT(*) AS num_films")
+    .joins(:films => :film_categories)
+    .group("customer.customer_id, category_id")
 
-  # end
+  end
 
 
 end

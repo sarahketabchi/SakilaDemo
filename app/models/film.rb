@@ -29,10 +29,19 @@ class Film < ActiveRecord::Base
 
   def self.in_most_stores
     self
+      .select("film.title, COUNT(DISTINCT(store.store_id)) AS num_stores")
       .joins(:stores)
-      .group(:film_id)
-      .order("COUNT(*) DESC")
+      .group("film.film_id")
+      .order("COUNT(DISTINCT(store.store_id)) DESC")
       .first
+  end
+
+  def self.has_most_inventory
+    self
+      .select("film.title, COUNT(*) AS inventory_amt")
+      .joins(:inventories)
+      .group("film.film_id")
+      .order("COUNT(*) DESC")
   end
 
   def self.most_rented

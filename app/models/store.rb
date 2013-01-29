@@ -9,4 +9,5 @@ class Store < ActiveRecord::Base
   has_one :country, :through => :address
 
 
+
 end

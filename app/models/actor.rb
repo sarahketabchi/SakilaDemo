@@ -8,6 +8,8 @@ class Actor < ActiveRecord::Base
   has_many :film_categories, :through => :films
   has_many :categories, :through => :film_categories
 
+  has_many :rentals, :through => :films
+
 
   def self.most_films
     self

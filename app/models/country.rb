@@ -4,7 +4,14 @@ class Country < ActiveRecord::Base
 
   has_many :cities
   has_many :addresses, :through => :cities
-  has_many :stores
+  has_many :stores, :through => :addresses
+  has_many :inventories, :through => :stores
 
+
+  def self.most_popular_actor
+    self
+      .joins(:inventories => :rentals)
+      .group()
+  end
 
 end

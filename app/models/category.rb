@@ -14,17 +14,12 @@ class Category < ActiveRecord::Base
       .first
   end
 
-
-  # def self.num_of_films_per_category(customer)
-  #   self
-  #   .select("category.*, COUNT(*) AS num_films")
-  #   .joins(:films)
-  #   .where("film.customers LIKE #{customer}")
-  #   .group("category_id")
-
-  # end
-
-  # def self.most_rented
-    
-  # end
+  def self.most_rented
+    self
+      .select("category.name, COUNT(*) AS num_rentals")
+      .joins(:films => :rentals)
+      .group("category.category_id")
+      .order("COUNT(*) DESC")
+      .first
+  end
 end
